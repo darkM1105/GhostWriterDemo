@@ -12,12 +12,11 @@ import javax.swing.*;
 public class Demo extends JFrame implements KeyListener, ActionListener{
 
     JTextField typingArea;
-    JTextArea displayArea;
-    static final String nl = System.getProperty("line.separator");
+    static JTextArea displayArea;
     long firstPressed = 0;
     long lastKeyTypedAt = 0;
-    ArrayList<Character> characters = new ArrayList<>();
-    ArrayList<Long> timeDifference = new ArrayList<>();
+    static ArrayList<Character> characters = new ArrayList<>();
+    static ArrayList<Long> timeDifference = new ArrayList<>();
     Thread t;
 
 
@@ -110,7 +109,7 @@ public class Demo extends JFrame implements KeyListener, ActionListener{
     }
 
     public void playBack() {
-        t = new Thread(new Counter(characters, timeDifference, displayArea));
+        t = new Counter();
         t.run();
         cleanUp();
         t = null;

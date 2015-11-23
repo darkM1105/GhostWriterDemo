@@ -4,19 +4,20 @@ import java.util.ArrayList;
 /**
  * Created by Matthew on 10/28/2015.
  */
-public class Counter implements Runnable {
+public class Counter extends Thread {
     private ArrayList<Character> characters;
     private ArrayList<Long> timeDifference;
     private JTextArea displayArea;
-    private static final String nl = System.getProperty("line.separator");
+    //private UIThread uiThread;
 
-    public Counter(ArrayList<Character> characters, ArrayList<Long> timeDifference, JTextArea displayArea){
-        this.characters = characters;
-        this.timeDifference = timeDifference;
-        this.displayArea = displayArea;
+    public Counter(){
+        this.characters = Demo.characters;
+        this.timeDifference = Demo.timeDifference;
+        this.displayArea = Demo.displayArea;
     }
 
     public void run(){
+        //uiThread = new UIThread();
         String character;
         long time;
         int count = characters.size();
@@ -32,9 +33,9 @@ public class Counter implements Runnable {
             }
 
             displayArea.append(character);
-            displayArea.revalidate();
+            displayArea.repaint();
+            //uiThread.append(character);
         }
-        displayArea.append(nl);
     }
 }
 

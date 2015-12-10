@@ -1,3 +1,5 @@
+package old_stuff;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.*;
@@ -11,12 +13,12 @@ import javax.swing.*;
 */
 public class Demo extends JFrame implements KeyListener, ActionListener{
 
-    JTextField typingArea;
-    static JTextArea displayArea;
+    public JTextField typingArea;
+    public static JTextArea displayArea;
     long firstPressed = 0;
     long lastKeyTypedAt = 0;
-    static ArrayList<Character> characters = new ArrayList<>();
-    static ArrayList<Long> timeDifference = new ArrayList<>();
+    public static ArrayList<Character> characters = new ArrayList<>();
+    public static ArrayList<Long> timeDifference = new ArrayList<>();
     Thread t;
 
 

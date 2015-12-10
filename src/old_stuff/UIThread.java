@@ -1,3 +1,7 @@
+package old_stuff;
+
+import old_stuff.Demo;
+
 import javax.swing.*;
 /**
  * Created by Matthew on 11/11/2015.

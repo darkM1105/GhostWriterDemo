@@ -1,4 +1,4 @@
-package final_stuff.persistence;
+package game_resources.persistence;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

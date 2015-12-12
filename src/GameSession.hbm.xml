@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="final_stuff.entity.GameSession" table="game_sessions">
+    <class name="game_resources.entity.GameSession" table="game_sessions">
         <meta attribute="class-description">
             This class contains information about a previous user's game session.
         </meta>

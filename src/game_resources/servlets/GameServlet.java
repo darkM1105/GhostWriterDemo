@@ -1,4 +1,4 @@
-package servlets;
+package game_resources.servlets;
 
 import java.io.*;
 import javax.servlet.*;
@@ -14,12 +14,10 @@ public class GameServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String url = "game.jsp";
-        String message = "This message came from the servlet";
+        String url = "/game.jsp";
 
-        request.setAttribute("message", message);
 
-        System.out.println("Got Here!!!");
+        //request.setAttribute("info", info);
 
         RequestDispatcher  dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);

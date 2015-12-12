@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="final_stuff.entity.WordList" table="word_lists">
+    <class name="game_resources.entity.WordList" table="word_lists">
         <meta attribute="class-description">
             This class contains information about the word list used in each game session.
         </meta>

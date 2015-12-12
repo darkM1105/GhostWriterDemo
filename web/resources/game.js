@@ -21,14 +21,12 @@ function verify(event) {
 
     } else {
 
-        userList.value = "";
+        userList.value = userList.value.substr(0, userList.value.length - 2);
 
     }
 
 }*/
 
-/*$(document).ready(function(){
-    $("textarea").click(function(){
-        $(this).hide();
-    });
-});*/
+$(document).ready(function(){
+
+});

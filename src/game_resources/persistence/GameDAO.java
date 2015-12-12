@@ -1,7 +1,7 @@
-package final_stuff.persistence;
+package game_resources.persistence;
 
-import final_stuff.entity.GameSession;
-import final_stuff.entity.WordList;
+import game_resources.entity.GameSession;
+import game_resources.entity.WordList;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -162,6 +162,60 @@ public class GameDAO {
 
     }
 
+    public WordList getWordListById(int listId) {
+
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Transaction tx = null;
+        WordList record = null;
+
+        try {
+
+            tx = session.beginTransaction();
+            Query query = session.createQuery("from WordList wl where wl.listId = :listId");
+            query.setString("listId", String.valueOf(listId));
+            record = (WordList)query.list();
+
+        } catch (HibernateException hex) {
+
+            hex.printStackTrace();
+
+        } finally {
+
+            session.close();
+
+        }
+
+        return record;
+
+    }
+
+    public GameSession getGameSessionById(int sessionId) {
+
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Transaction tx = null;
+        GameSession record = null;
+
+        try {
+
+            tx = session.beginTransaction();
+            Query query = session.createQuery("from GameSession gs where gs.sessionId = :sessionId");
+            query.setString("sessionId", String.valueOf(sessionId));
+            record = (GameSession)query.list();
+
+        } catch (HibernateException hex) {
+
+            hex.printStackTrace();
+
+        } finally {
+
+            session.close();
+
+        }
+
+        return record;
+
+    }
+
     public void deleteWordList(int listId) {
 
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
@@ -253,6 +307,31 @@ public class GameDAO {
             session.close();
 
         }
+
+    }
+
+    public Integer getNextListId() {
+
+        Session session = SessionFactoryProvider.getSessionFactory().openSession();
+        Transaction tx = null;
+        Integer count = 0;
+
+        try {
+
+            tx = session.beginTransaction();
+            count = ((Number) session.createQuery("select max(WordList.listId) from WordList").uniqueResult()).intValue() + 1;
+
+        } catch (HibernateException hex) {
+
+            hex.printStackTrace();
+
+        } finally {
+
+            session.close();
+
+        }
+
+        return count;
 
     }
 

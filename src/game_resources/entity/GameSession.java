@@ -1,4 +1,4 @@
-package final_stuff.entity;
+package game_resources.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,14 +9,29 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "word_lists")
-public class WordList {
+@Table(name = "game_sessions")
+public class GameSession {
 
-    @Column(name = "list_id")
+    @Column(name = "session_id")
+    private int sessionId;
+
+    @Column(name = "wl_list_id")
     private int listId;
 
     @Column(name = "file_path")
     private String filePath;
+
+    public int getSessionId() {
+
+        return sessionId;
+
+    }
+
+    public void setSessionId(int sessionId) {
+
+        this.sessionId = sessionId;
+
+    }
 
     public int getListId() {
 
@@ -42,10 +57,11 @@ public class WordList {
 
     }
 
-    public WordList() {}
+    public GameSession() {}
 
-    public WordList(int listId, String filePath) {
+    public GameSession(int sessionId, int listId, String filePath) {
 
+        this.sessionId = sessionId;
         this.listId = listId;
         this.filePath = filePath;
 
@@ -53,7 +69,7 @@ public class WordList {
 
     public String toString() {
 
-        return "listId: " + listId + "; filePath: " + filePath;
+        return "sessionId: " + sessionId + "; listId: " + listId + "; filePath: " + filePath;
 
     }
 

@@ -4,6 +4,8 @@
     <title>Index</title>
 </head>
 <body>
-    <a href="game">Game</a>
+    <a href="/username">Game</a>
+    <br>
+    <a href="">Admin Only</a>
 </body>
 </html>

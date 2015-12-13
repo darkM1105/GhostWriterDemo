@@ -1,13 +1,11 @@
 package game_resources.processing;
 
 import game_resources.entity.GameSession;
+import game_resources.entity.InfoBean;
 import game_resources.entity.WordList;
 import game_resources.persistence.GameDAO;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -39,6 +37,7 @@ public class Compressor {
         filePath = createFile("word_list", 0, "");
         WordList wordList = new WordList(0, filePath);
         record = GameDAO.getPublicDAO().createWordList(wordList);
+        new File("C:\\10DashingDigitsDB\\GameSessions\\List" + record).mkdir();
 
         return record;
 
@@ -48,22 +47,20 @@ public class Compressor {
 
         String finalName = "";
         String directory = "";
-        int listId = wordListId;
-        String userName = username;
+        String userName = username + "ts";
         String tempName;
 
         if (fileType.equals("game_session")) {
 
-            directory = "GameSessions\\list" + listId;
+            directory = "GameSessions\\List" + wordListId;
 
         } else if (fileType.equals("word_list")) {
 
             directory = "WordLists";
-            listId = GameDAO.getPublicDAO().getNextListId();
 
         }
 
-        tempName = "C:\\10DashingDigitsDB\\" + directory + "\\" + createTimeStampName() + listId + ".txt";
+        tempName = "C:\\10DashingDigitsDB\\" + directory + "\\" + userName + createTimeStamp() + ".txt";
 
         try(PrintWriter printer = new PrintWriter(new BufferedWriter(new FileWriter(tempName)))) {
 
@@ -77,10 +74,6 @@ public class Compressor {
 
                         printer.println();
 
-                    } else if (i == (sessionArray.length - 1)) {
-
-                        printer.println(userName);
-
                     }
 
                 }
@@ -89,21 +82,26 @@ public class Compressor {
 
             } else if (fileType.equals("word_list")) {
 
+                int index = 0;
+
                 for (int i = 1; i <= 3; i++) {
 
-                    for(int j = 1; j <= 10; j++) {
+                    for (int j = 1; j <= 10; j++) {
 
-                        printer.print(wordListArray[i] + " ");
+                        printer.print(wordListArray[index]);
+                        index++;
 
                     }
 
-                    printer.println();
+                    if (i != 3) {
+
+                        printer.println();
+
+                    }
 
                 }
 
                 finalName = tempName;
-
-                printer.print(finalName + " ");
 
             }
 
@@ -117,20 +115,17 @@ public class Compressor {
 
     }
 
-    private String createTimeStampName() {
+    private String createTimeStamp() {
 
         String timeStampName;
 
         Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss a");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy h:mm:ss a");
         timeStampName = sdf.format(date);
 
-        timeStampName = timeStampName.replaceFirst("/", "MM");
-        timeStampName = timeStampName.replaceFirst("/", "dd");
-        timeStampName = timeStampName.replaceFirst(" ", "yyyy");
-        timeStampName = timeStampName.replaceFirst(":", "hh");
-        timeStampName = timeStampName.replaceFirst(":", "mm");
-        timeStampName = timeStampName.replaceFirst(" ", "ss");
+        timeStampName = timeStampName.replace("/", "");
+        timeStampName = timeStampName.replace(" ", "");
+        timeStampName = timeStampName.replace(":", "");
 
         return timeStampName;
 

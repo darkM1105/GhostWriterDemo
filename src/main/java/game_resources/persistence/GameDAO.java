@@ -2,10 +2,13 @@ package game_resources.persistence;
 
 import game_resources.entity.GameSession;
 import game_resources.entity.WordList;
+import org.apache.commons.io.FileUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -173,7 +176,7 @@ public class GameDAO {
             tx = session.beginTransaction();
             Query query = session.createQuery("from WordList wl where wl.listId = :listId");
             query.setString("listId", String.valueOf(listId));
-            record = (WordList)query.list();
+            record = (WordList)query.list().get(0);
 
         } catch (HibernateException hex) {
 
@@ -200,7 +203,7 @@ public class GameDAO {
             tx = session.beginTransaction();
             Query query = session.createQuery("from GameSession gs where gs.sessionId = :sessionId");
             query.setString("sessionId", String.valueOf(sessionId));
-            record = (GameSession)query.list();
+            record = (GameSession)query.list().get(0);
 
         } catch (HibernateException hex) {
 
@@ -220,6 +223,7 @@ public class GameDAO {
 
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Transaction tx = null;
+        String filePath = getWordListById(listId).getFilePath();
 
         try {
 
@@ -243,6 +247,17 @@ public class GameDAO {
         } finally {
 
             session.close();
+
+        }
+
+        try {
+
+            File file = new File(filePath);
+            file.delete();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
 
         }
 
@@ -277,12 +292,23 @@ public class GameDAO {
 
         }
 
+        try {
+
+            FileUtils.deleteDirectory(new File("C:\\10DashingDigitsDB\\GameSessions\\List" + listId));
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+
     }
 
     public void deleteOlderGameSession(int sessionId) {
 
         Session session = SessionFactoryProvider.getSessionFactory().openSession();
         Transaction tx = null;
+        String filePath = getGameSessionById(sessionId).getFilePath();
 
         try {
 
@@ -308,30 +334,16 @@ public class GameDAO {
 
         }
 
-    }
-
-    public Integer getNextListId() {
-
-        Session session = SessionFactoryProvider.getSessionFactory().openSession();
-        Transaction tx = null;
-        Integer count = 0;
-
         try {
 
-            tx = session.beginTransaction();
-            count = ((Number) session.createQuery("select max(WordList.listId) from WordList").uniqueResult()).intValue() + 1;
+            File file = new File(filePath);
+            file.delete();
 
-        } catch (HibernateException hex) {
+        } catch (Exception e) {
 
-            hex.printStackTrace();
-
-        } finally {
-
-            session.close();
+            e.printStackTrace();
 
         }
-
-        return count;
 
     }
 

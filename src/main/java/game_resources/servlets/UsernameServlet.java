@@ -19,7 +19,7 @@ public class UsernameServlet extends HttpServlet {
         RandomizedName randomizedName = new RandomizedName();
         String randomName = randomizedName.generateRandomName();
 
-        request.setAttribute("RandomName", randomName);
+        request.setAttribute("info", randomName);
 
         RequestDispatcher  dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);

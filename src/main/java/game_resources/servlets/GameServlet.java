@@ -12,11 +12,11 @@ import javax.servlet.annotation.*;
 
 public class GameServlet extends HttpServlet {
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String url = "/game.jsp";
 
-
+        System.out.println(request.getParameter("username"));
         //request.setAttribute("info", info);
 
         RequestDispatcher  dispatcher = getServletContext().getRequestDispatcher(url);

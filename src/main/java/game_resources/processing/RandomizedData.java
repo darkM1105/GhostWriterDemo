@@ -58,7 +58,7 @@ public class RandomizedData {
 
             while ((line = reader.readLine()) != null) {
 
-                tempArray.add(line);
+                tempArray.add(line + " ");
 
             }
 
@@ -66,19 +66,20 @@ public class RandomizedData {
 
             System.out.println("Random word list generation by internet has failed. Generating a word list by server-side instead.");
 
-            char aChar;
             String alphabet = "Aa0BbCc1DdEe2FfGg3HhIi4JjKk5LlMm6NnOo7PpQq8RrSs9TtUuVvWwXxYyZz";
 
             for (int i = 0; i < 30; i++) {
 
+                String tempString = "";
+
                 for (int j = 0; j < 6; j++) {
 
-                    aChar = alphabet.charAt(random.nextInt(alphabet.length()));
-                    tempArray.add(String.valueOf(aChar));
+                    tempString += alphabet.charAt(random.nextInt(alphabet.length()));
 
                 }
 
-                tempArray.add(" ");
+                tempString += " ";
+                tempArray.add(tempString);
 
             }
 

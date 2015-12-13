@@ -174,7 +174,7 @@ public class RandomizedName {
 
             case "X" :
 
-                militaryPhoneticString = "X-Ray";
+                militaryPhoneticString = "Xray";
                 break;
 
             case "Y" :
